@@ -12,7 +12,7 @@ def retry():
 		retry()
 
 def start():
-	choice = input("\nIt was a hot summer night when you and your friend went to the biggest club in the city for a fun night...\nYou told your parents you would be back before midnight, but while you were enjoying yourself, a group of zombies started attacking the club...\nThere is complete chaos and nothing but darkness and screaming...\n\nWill you look for your friend in the crowd?\n1)Yes\n2)No\n\n>>")
+	choice = input("\nIt was a hot summer evening when you and your friend went to the biggest club in the city for a wild night...\nYou told your parents you would be back before midnight, but while you were enjoying yourself, a group of zombies started attacking the club...\nThere is complete chaos and nothing but darkness and screaming...\nYou must get back home safe...\n\nWill you look for your friend in the crowd?\n1)Yes\n2)No\n\n>>")
 	if choice == "1":
 		friend()
 	elif choice == "2":
