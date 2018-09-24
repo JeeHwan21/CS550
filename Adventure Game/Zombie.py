@@ -6,6 +6,9 @@ def check(choice,a,b):
 def lose():
 	print("\nYou will not get back home.")
 
+def win():
+	print("\nYou can arrive home safely.")
+
 def retry():
 	choice = input("\nPLAY AGAIN?\n\n1)Yes\n2)No\n\n>>")
 	if check(choice,"1","2") == "1":
@@ -54,7 +57,8 @@ def staircase():
 		downstairs()
 
 def downstairs():
-	print("\nYou have come to the parking lot in the basement floor. There seem to be no zombies, and there is an exit to the street!\nYou can escape and arrive home safely.")
+	print("\nYou have come to the parking lot in the basement floor. There seem to be no zombies, and there is an exit to the street!")
+	win()
 	retry()
 
 
@@ -100,7 +104,8 @@ def security():
 		guardShoot()
 
 def unlock():
-	print("\nWow, you made it! The guard unlocked the door and you were able to escape the club! You are able to arrive home safely.")
+	print("\nWow, you made it! The guard unlocked the door and you were able to escape the club!")
+	win()
 	retry()
 
 def guardShoot():
