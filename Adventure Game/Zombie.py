@@ -3,6 +3,9 @@ def check(choice,a,b):
 		choice = input("\nPlease enter 1 or 2.\n\n>>")
 	return choice
 
+def lose():
+	print("\nYou will not get back home.")
+
 def retry():
 	choice = input("\nPLAY AGAIN?\n\n1)Yes\n2)No\n\n>>")
 	if check(choice,"1","2") == "1":
@@ -39,7 +42,8 @@ def gotoExit():
 		staircase()
 
 def people():
-	print("\nOh no! They actually turned out to be zombies, and they started attacking you...\nYou will not get back home.")
+	print("\nOh no! They actually turned out to be zombies, and they started attacking you...")
+	lose()
 	retry()
 
 def staircase():
@@ -65,7 +69,8 @@ def backtoClub():
 	pass
 
 def bathroom():
-	print("\nYou walked into the closest bathroom and entered an empty cubicle. You thought you were safe, but a zombie crawled in from an adjacent cubicle and attacked you.\nYou will not get back home.")
+	print("\nYou walked into the closest bathroom and entered an empty cubicle. You thought you were safe, but a zombie crawled in from an adjacent cubicle and attacked you.")
+	lose()
 	retry()
 
 def friendHide():
@@ -76,7 +81,8 @@ def friendHide():
 		persuade()
 
 def runaway():
-	print("\nWhile you were running away, a zombie attacked you from behind.\nYou will not get back home.")
+	print("\nWhile you were running away, a zombie attacked you from behind.")
+	lose()
 	retry()
 
 def persuade():
@@ -94,11 +100,12 @@ def security():
 		guardShoot()
 
 def unlock():
-	print("\nWow, you made it! The guard unlocked the door and you were able to escape the club! You were able to arrive home safely.")
+	print("\nWow, you made it! The guard unlocked the door and you were able to escape the club! You are able to arrive home safely.")
 	retry()
 
 def guardShoot():
-	print("\nA zombie bites the security guard on your way. He tries to shoot the zombie but misses and instead shoots you.\nYou cannot get back home.")
+	print("\nA zombie bites the security guard on your way. He tries to shoot the zombie but misses and instead shoots you.")
+	lose()
 	retry()
 
 def noFriend():
@@ -109,11 +116,13 @@ def noFriend():
 		exitAlone()
 
 def exitAlone():
-	print("\nOn your way to the exit, a zombie attacked you from behind.\nYou will not get back home.")
+	print("\nOn your way to the exit, a zombie attacked you from behind.")
+	lose()
 	retry()
 
 def hideAlone():
-	print("\nYou ran to the nearest table and hid underneath. However, a scared security guard already there thought you were a zombie and shot you.\nYou will not get back home.")
+	print("\nYou ran to the nearest table and hid underneath. However, a scared security guard already there thought you were a zombie and shot you.")
+	lose()
 	retry()
 
 start()
