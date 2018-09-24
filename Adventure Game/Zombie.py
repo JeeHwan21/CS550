@@ -50,7 +50,8 @@ def staircase():
 		downstairs()
 
 def downstairs():
-	print("\nYou have come to the parking lot. There seem to be no zombies, and there is an exit to the street!\nYou can escape and arrive home safely.")
+	print("\nYou have come to the parking lot in the basement floor. There seem to be no zombies, and there is an exit to the street!\nYou can escape and arrive home safely.")
+	retry()
 
 
 def upstairs():
@@ -79,7 +80,26 @@ def runaway():
 	retry()
 
 def persuade():
-	pass
+	choice = input("\nYou are lucky! The security guard decides to cooperate with you. He tell you that you need his keys to unlock the door and escape.\nWill you trust him and stay with him?\n\n1)Yes\n2)No\n\n>>")
+	if check(choice,"1","2") == "1":
+		security()
+	else:
+		bathroom()
+
+def security():
+	choice = input("\nGreat. He is a trustworthy man. Will you make a run with him to the exit, or run to a different hiding spot?\n\n1)Run with him to the exit\n2)Run to a different hiding spot\n\n>>")
+	if check(choice,"1","2") == "1":
+		unlock()
+	else:
+		guardShoot()
+
+def unlock():
+	print("\nWow, you made it! The guard unlocked the door and you were able to escape the club! You were able to arrive home safely.")
+	retry()
+
+def guardShoot():
+	print("\nA zombie bites the security guard on your way. He tries to shoot the zombie but misses and instead shoots you.\nYou cannot get back home.")
+	retry()
 
 def noFriend():
 	choice = input("\nYou are on your own, and you think you know where the exit is.\nWill you hide first, or head straight to the exit?\n\n1)Hide first\n2)Head to the exit\n\n>>")
