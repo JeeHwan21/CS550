@@ -20,9 +20,9 @@ def start():
 def friend():
 	choice = input("\nFortunately, you found your friend! Your friend seems very drunk, so you carry him on your back.\nYou think you know where the exit is...Will you hide first, or go striaght to the exit?\n\n1)Hide\n2)Go straight to the exit\n\n>>")
 	if check(choice,"1","2") == "1":
-		friendExit()
-	else:
 		friendHide()
+	else:
+		friendExit()
 
 def friendExit():
 	choice = input("\nWhile you were running to the exit, your friend got attacked by a zombie.\nYou survived, though, and now you are left in the middle of the club.\nWill you continue to the exit, or hide in a bathroom?\n\n1)Continue to exit\n2)Hide in a bathroom\n\n>>")
@@ -68,14 +68,14 @@ def bathroom():
 	retry()
 
 def friendHide():
-	choice = input("You ran to the nearest table with your friend and hid underneath. However, a scared security guard already there thought you two were zombies and shot your friend first.\nWill you runaway or try to persaude the security guard that you are not a zombie?\n\n1)Runaway\n2)Try to persuade the security guard\n\n>>")
+	choice = input("\nYou ran to the nearest table with your friend and hid underneath. However, a scared security guard already there thought you two were zombies and shot your friend first.\nWill you runaway or try to persaude the security guard that you are not a zombie?\n\n1)Runaway\n2)Try to persuade the security guard\n\n>>")
 	if check(choice,"1","2") == "1":
 		runaway()
 	else:
 		persuade()
 
 def runaway():
-	print("\nWhile you were running away, a zombie attacked you from behind. You will not get back home.")
+	print("\nWhile you were running away, a zombie attacked you from behind.\nYou will not get back home.")
 	retry()
 
 def persuade():
@@ -84,9 +84,9 @@ def persuade():
 def noFriend():
 	choice = input("\nYou are on your own, and you think you know where the exit is.\nWill you hide first, or head straight to the exit?\n\n1)Hide first\n2)Head to the exit\n\n>>")
 	if check(choice,"1","2") == "1":
-		exitAlone()
-	else:
 		hideAlone()
+	else:
+		exitAlone()
 
 def exitAlone():
 	print("\nOn your way to the exit, a zombie attacked you from behind.\nYou will not get back home.")
