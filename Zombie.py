@@ -32,12 +32,51 @@ def friend():
 		friend()
 
 def friendExit():
+	choice = input("\nWhile you were running to the exit, your friend got attacked by a zombie.\nYou survived, though, and now you are left in the middle of the club.\n\nShould you continue to the exit, or hide in a bathroom?\n1)Continue to exit\n2)Hide in a bathroom\n\n>>")
+	if choice == "1":
+		gotoExit()
+	elif choice == "2":
+		bathroom()
+	else:
+		mistake()
+		friendExit()
+
+def gotoExit():
+	choice = input("You successfully reached the exit, but the exit is locked! There are zombies running toward you!\nOn your left is a group of people and on your right is a staircase.\n\nWhich way should you go?\n1)Group of people\n2)Staircase\n\n>>")
+	if choice == "1":
+		people()
+	elif choice == "2":
+		staircase()
+	else:
+		mistake()
+		gotoExit()
+
+def people():
+	pass
+
+def staircase():
+	pass
+
+def bathroom():
 	pass
 
 def friendHide():
 	pass
 
 def noFriend():
+	choice = input("You are on your own, and you think you know where the exit is.\n\nShould you hide first, or head straight to the exit?\n1)Hide first\n2)Head to the exit\n\n>>")
+	if choice == "1":
+		exitAlone()
+	elif choice == "2":
+		hideAlone()
+	else
+		mistake()
+		noFriend()
+
+def exitAlone():
+	pass
+
+def hideAlone():
 	pass
 
 start()
