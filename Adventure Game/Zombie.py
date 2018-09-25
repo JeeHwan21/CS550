@@ -24,7 +24,7 @@ def start():
 		noFriend()
 
 def friend():
-	choice = input("\nFortunately, you found your friend! Your friend seems very drunk, so you carry him on your back.\nYou think you know where the exit is...Will you hide first, or go striaght to the exit?\n\n1)Hide\n2)Go straight to the exit\n\n>>")
+	choice = input("\nFortunately, you found your friend! Your friend seems very drunk, so you carry him on your back.\nYou think you know where the exit is... Will you hide first, or go striaght to the exit?\n\n1)Hide\n2)Go straight to the exit\n\n>>")
 	if check(choice,"1","2") == "1":
 		friendHide()
 	else:
@@ -61,19 +61,39 @@ def downstairs():
 	win()
 	retry()
 
-
 def upstairs():
-	choice = input("\nNo one is up here, and there are only closed stores. You can hide here, but if you want to be home by midnight, you must get out.\nWill you head down to the club or the basement?\n\n1)Club\n2)Basement\n\n>>")
+	choice = input("\nNo one is up here, and there are only closed stores. You can hide here, but if you want to be home by midnight, you must get out.\nWill you head down back to the club or the basement?\n\n1)Club\n2)Basement\n\n>>")
 	if check(choice,"1","2") == "1":
 		backtoClub()
 	else:
 		downstairs()
 
 def backtoClub():
-	pass
+	choice = input("\nYou come back down to the club, and there are more zombies than there were before. You start panicking and are left with only two choices...\nWill you go into a bathroom and hide until the club quiets down or look for the security guard with the keys to the exit?\n\n1)Hide in bathroom\n2)Look for security guard\n\n>>")
+	if check(choice,"1","2") == "1":
+		bathroom()
+	else:
+		search()
+
+def search():
+	choice = input("\nYou found the security guard, but he has turned into a zombie.\nWill you search for help to defeat the security guard or face him alone?\n\n1)Search for help\n2)Face him alone\n\n>>")
+	if check(choice,"1","2") == "1":
+		help()
+	else:
+		fight()
+
+def fight():
+	print("\nWow! You were able to grab the keys from him without getting hurt! You immediately ran to the exit, unlocked the door and escaped!")
+	win()
+	retry()
+
+def help():
+	print("\nUnfortunately, it took too long for you to find a survivor in the club, and as you lost track of the security guard, a zombie attacked you from behind.")
+	lose()
+	retry()
 
 def bathroom():
-	print("\nYou walked into the closest bathroom and entered an empty cubicle. You thought you were safe, but a zombie crawled in from an adjacent cubicle and attacked you.")
+	print("\nYou walk into the closest bathroom and enter an empty cubicle. You thought you were safe, but a zombie crawled in from an adjacent cubicle and attacked you.")
 	lose()
 	retry()
 
@@ -90,7 +110,7 @@ def runaway():
 	retry()
 
 def persuade():
-	choice = input("\nYou are lucky! The security guard decides to cooperate with you. He tell you that you need his keys to unlock the door and escape.\nWill you trust him and stay with him?\n\n1)Yes\n2)No\n\n>>")
+	choice = input("\nYou are lucky! The security guard decides to cooperate with you. He tells you that you need his keys to unlock the door and escape.\nWill you trust him and stay with him, or leave?\n\n1)Trust him\n2)Leave\n\n>>")
 	if check(choice,"1","2") == "1":
 		security()
 	else:
