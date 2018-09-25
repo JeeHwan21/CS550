@@ -1,4 +1,6 @@
-def check(choice,a,b):
+# JeeHwan Kim (9.25.18) On my honor, I have neither given nor received unauthorized aid.
+
+def check(choice,a,b):  # https://github.com/crhmhealey/2018_ClassDemos/blob/master/g%20block%20demos/demo_game.py (9.23.18)
 	while choice != a and choice != b:
 		choice = input("\nPlease enter 1 or 2.\n\n>>")
 	return choice
