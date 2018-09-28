@@ -1,5 +1,8 @@
 # For  a  list  with  random  values,  if  any  value  in  the  list  is  divisible  by  the  first  value  of  the  list,  delete  that  value  (Pearson,  Kyn,  Dominique,  and  Scott)
 
+import sys
+import random
+
 print("\nQ2.")
 
 a2 = []
