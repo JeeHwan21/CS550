@@ -5,7 +5,7 @@ h = int(s.argv[2])
 b = int(s.argv[3])
 
 if w < 1 or h < 1:
-	print("Please enter first two volues over 0.")
+	print("Please enter first two values over 0.")
 
 else:
 	mf = [[0] * w for x in range(h)]
