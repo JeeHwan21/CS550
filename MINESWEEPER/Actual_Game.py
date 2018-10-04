@@ -1,48 +1,85 @@
 import random as r, sys as s
 
-def userinput():  # checking for errors for inputs
+def checkInput():  # checking for errors for inputs
 	while True:
 		try:
-			global func  # https://stackoverflow.com/questions/423379/using-global-variables-in-a-function (10.3.18)
-			a, b, func = input("\nCOLUMN, ROW and r FOR REVEAL or f FOR FLAG WITH SPACES IN BETWEEN:\n>>").split()  # https://stackoverflow.com/questions/961263/two-values-from-one-input-in-python (10.3.18)
+			global col, row, func  # https://stackoverflow.com/questions/423379/using-global-variables-in-a-function (10.3.18)
+			a, b, func = input("\nCOLUMN, ROW and r FOR REVEAL or f FOR FLAG WITH SPACES IN BETWEEN (ex: 1 1 r)\n>>").split()  # https://stackoverflow.com/questions/961263/two-values-from-one-input-in-python (10.3.18)
 			break
 		except ValueError:
 			print("\nPLEASE ENTER THREE SEPEARATE VALUES.")
 	while True:
 		try:
-			global col
 			col = int(a)
-			global row
 			row = int(b)
 			break
 		except ValueError:
-			print("\nCOLUMN AND ROW MUST BE INTERGERS.")
-			userinput()
+			print("\nCOLUMN AND ROW MUST BE INTEGERS.")
+			checkInput()
 	if col < 1 or col > h or row < 1 or row > w:
 		print("\nCOLUMN AND/OR ROW OUT OF RANGE.")
-		userinput()
+		checkInput()
 	elif func != "r" and func != "f":
 		print("\nLAST VALUE MUST BE r or f.")
-		userinput()
+		checkInput()
 
-def ptbd():
+def printBoard():
+	print()
 	for x in board:
 		print(*x)
 
-def rf(a, b, c):
+def lose():
+	x = input("\nTRY AGAIN? (1: YES 2: NO)\n>>")
+	if x == "1":
+		game()
+	elif x == "2":
+		quit()
+	else:
+		print("\nPLEASE ENTER 1 OR 2.")
+		lose()
+
+
+def revealFlag(a, b, c):
 	if c == "r":
 		board[a - 1][b - 1] = ans[a - 1][b - 1]
-	ptbd()
+		printBoard()
+		if board[a - 1][b - 1] == "*":
+			lose()
+		else:
+			checkInput()
+			revealFlag(col, row, func)
+	elif c == "f":
+		board[a - 1][b - 1] = "F"
+		printBoard()
+		checkInput()
+		revealFlag(col, row, func)
 
+def game():
+	start()
+	answer()
+	reset()
+	printBoard()
+	checkInput()
+	revealFlag()
 
-w, h, b = [int(s.argv[1]), int(s.argv[2]), int(s.argv[3])]
+print("\n=======================\nWELCOME TO MINESWEEPER!\n=======================")
+
+def start():
+	while True:
+		try:
+			global w, h, b
+			x, y, z = input("\nWIDTH, HEIGHT AND NUMBER OF BOMBS WITH SPACES IN BETWEEN (ex: 5 6 4)\n>>").split()
+			w = int(x)
+			h = int(y)
+			b = int(z)
+			break
+		except ValueError:
+			print("\nPLEASE ENTER THREE INTEGERS.")
 
 # === ANSWER ===
 
-if w < 1 or h < 1:
-	print("UNABLE TO PRODUCE BOARD; PLEASE ENTER VALUES ABOVE ZERO.")
-
-else:
+def answer():
+	global ans
 	ans = [[0] * (w + 2) for x in range(h + 2)]
 
 	for i in range(b):
@@ -50,32 +87,34 @@ else:
 		bw = r.randint(1, w)
 		ans[bh][bw] = "*"
 
-	for a in range(1, h + 1):
-		for b in range(1, w + 1):
-			if ans[a][b] == "*":  # Bombs
+	for e in range(1, h + 1):
+		for f in range(1, w + 1):
+			if ans[e][f] == "*":
 				continue
-			else:  # Others
+			else:
 				sum = 0
 				for i in range(3):
 					for j in range(3):
-						if ans[a - 1 + i][b - 1 + j] == "*":
+						if ans[e - 1 + i][f - 1 + j] == "*":
 							sum += 1
 						else:
 							continue
-					ans[a][b] = sum
+					ans[e][f] = sum
 
 	for x in ans:
 		del x[0], x[-1]
 	del ans[0], ans[-1]
 
+def reset():
+	global board
+	board = [["?"] * (w) for x in range(h)]
+
 # === UNSOLVED ===
 
-board = [["?"] * (w) for x in range(h)]
+start()
+answer()
+reset()
+printBoard()
+checkInput()
+revealFlag(col, row, func)
 
-ptbd()
-
-for x in ans:
-	print(*x)
-
-userinput()
-print(col)
