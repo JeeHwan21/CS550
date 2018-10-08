@@ -1,12 +1,14 @@
 import random as r, sys as s
 
-def reset():
+# === UNSOLVED ===
+
+def reset():  # make a board of question marks
 	global board
 	board = [["?"] * (w + 2) for x in range(h + 2)]
 	for x in board:
 		x[0], x[-1] = "|", "|"
-	board[0] = "-" * (w + 2)
-	board[-1] = "-" * (w + 2)
+	board[0] = "┌" + "-" * w + "┐"
+	board[-1] = "└" + "-" * w + "┘"
 
 def checkInput():  # checking for errors for inputs
 	while True:
@@ -31,13 +33,13 @@ def checkInput():  # checking for errors for inputs
 		print("\nLAST VALUE MUST BE r or f.")
 		checkInput()
 
-def printBoard():
+def printBoard():  # print the current board
 	print()
 	for x in board:
 		print(*x)
 
 def lose():
-	x = input("\nTRY AGAIN? (1: YES 2: NO)\n>>")
+	x = input("\nYOU LOSE! TRY AGAIN? (1: YES 2: NO)\n>>")
 	if x == "1":
 		game()
 	elif x == "2":
@@ -48,7 +50,7 @@ def lose():
 
 # === ANSWER ===
 
-def answer():
+def answer():  # make the answer board
 	global ans
 	ans = [["|"] * (w + 2) for x in range(h + 2)]
 
@@ -72,41 +74,65 @@ def answer():
 					ans[e][f] = sum
 
 	ans[0] = "-" * (w + 2)
-	ans[-1] = "-" * (w + 2)
+	ans[-1] = "-" * (h + 2)
 
-def zero(a, b):
+def zero(a, b):  # reveal all of the contiguous zeroes
 	for i in range(-1, 2):
 		for j in range(-1, 2):
 			if ans[b + i][a + j] == 0 and board[b + i][a + j] == "?":
-				zero(a + i, b + j)
-			board[b + i][a + j] = ans[b + i][a + j]
+				board[b + i][a + j] = ans[b + i][a + j]
+				zero(a + j, b + i)
+			elif ans[b + i][a + j] == "|" or ans[b + i][a + j] == "-":
+				continue
+			else:
+				board[b + i][a + j] = ans[b + i][a + j]
 
+def win():
+	x = input("\nYOU WIN! TRY AGAIN? (1: YES 2: NO)\n>>")
+	if x == "1":
+		game()
+	elif x == "2":
+		quit()
+	else:
+		print("\nPLEASE ENTER 1 OR 2.")
+		win()
 
+def winCheck():  # check if the board is complete with correct answers
+	sum = 0
+	for i in range(1, h + 1):
+		for j in range(1, w + 1):
+			if board[i][j] == ans[i][j]:
+				sum += 1
+			elif board[i][j] == "F" and ans[i][j] == "*":
+				sum += 1
+	if sum == w * h:
+		win()
 
-def revealFlag(a, b, c):
+def revealFlag(a, b, c):  # reveal characters and numbers depending on function (r or f)
 	if c == "r":
-		# board[b][a] = ans[b][a]
-		if ans[b][a] == "*":
+		if ans[b][a] == "*":  # lose
 			board[b][a] = ans[b][a]
 			printBoard()
 			lose()
-		elif ans[b][a] == 0:
+		elif ans[b][a] == 0:  # reveal contiguous zeroes
 			zero(a, b)
 			printBoard()
+			winCheck()
 			checkInput()
 			revealFlag(col, row, func)
-		else:
+		else:  # reveal number
 			board[b][a] = ans[b][a]
 			printBoard()
+			winCheck()
 			checkInput()
 			revealFlag(col, row, func)
-	elif c == "f":
+	elif c == "f":  # flag
 		board[b][a] = "F"
 		printBoard()
 		checkInput()
 		revealFlag(col, row, func)
 
-def game():
+def game():  # for restarting the game after winning or losing
 	start()
 	answer()
 	reset()
@@ -114,9 +140,7 @@ def game():
 	checkInput()
 	revealFlag(col, row, func)
 
-print("\n=======================\nWELCOME TO MINESWEEPER!\n=======================")
-
-def start():
+def start():  # selecting the dimensions of the minesweeper board
 	while True:
 		try:
 			global w, h, b
@@ -128,12 +152,11 @@ def start():
 		except ValueError:
 			print("\nPLEASE ENTER THREE INTEGERS.")
 
-# === UNSOLVED ===
 
+print("\n=======================\nWELCOME TO MINESWEEPER!\n=======================")
 start()
 answer()
 reset()
 printBoard()
 checkInput()
 revealFlag(col, row, func)
-
