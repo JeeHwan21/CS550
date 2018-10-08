@@ -1,5 +1,9 @@
 import random as r, sys as s
 
+def reset():
+	global board
+	board = [["?"] * (w) for x in range(h)]
+
 def checkInput():  # checking for errors for inputs
 	while True:
 		try:
@@ -38,44 +42,6 @@ def lose():
 		print("\nPLEASE ENTER 1 OR 2.")
 		lose()
 
-
-def revealFlag(a, b, c):
-	if c == "r":
-		board[a - 1][b - 1] = ans[a - 1][b - 1]
-		printBoard()
-		if board[a - 1][b - 1] == "*":
-			lose()
-		else:
-			checkInput()
-			revealFlag(col, row, func)
-	elif c == "f":
-		board[a - 1][b - 1] = "F"
-		printBoard()
-		checkInput()
-		revealFlag(col, row, func)
-
-def game():
-	start()
-	answer()
-	reset()
-	printBoard()
-	checkInput()
-	revealFlag()
-
-print("\n=======================\nWELCOME TO MINESWEEPER!\n=======================")
-
-def start():
-	while True:
-		try:
-			global w, h, b
-			x, y, z = input("\nWIDTH, HEIGHT AND NUMBER OF BOMBS WITH SPACES IN BETWEEN (ex: 5 6 4)\n>>").split()
-			w = int(x)
-			h = int(y)
-			b = int(z)
-			break
-		except ValueError:
-			print("\nPLEASE ENTER THREE INTEGERS.")
-
 # === ANSWER ===
 
 def answer():
@@ -105,9 +71,45 @@ def answer():
 		del x[0], x[-1]
 	del ans[0], ans[-1]
 
-def reset():
-	global board
-	board = [["?"] * (w) for x in range(h)]
+def revealFlag(a, b, c):
+	if c == "r":
+		board[b - 1][a - 1] = ans[b - 1][a - 1]
+		if board[b - 1][a - 1] == "*":
+			printBoard()
+			lose()
+		elif board[b - 1][a - 1] == "0":
+
+		else:
+			printBoard()
+			checkInput()
+			revealFlag(col, row, func)
+	elif c == "f":
+		board[b - 1][a - 1] = "F"
+		printBoard()
+		checkInput()
+		revealFlag(col, row, func)
+
+def game():
+	start()
+	answer()
+	reset()
+	printBoard()
+	checkInput()
+	revealFlag(col, row, func)
+
+print("\n=======================\nWELCOME TO MINESWEEPER!\n=======================")
+
+def start():
+	while True:
+		try:
+			global w, h, b
+			x, y, z = input("\nWIDTH, HEIGHT AND NUMBER OF BOMBS WITH SPACES IN BETWEEN (ex: 5 6 4)\n>>").split()
+			w = int(x)
+			h = int(y)
+			b = int(z)
+			break
+		except ValueError:
+			print("\nPLEASE ENTER THREE INTEGERS.")
 
 # === UNSOLVED ===
 
