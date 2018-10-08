@@ -2,7 +2,11 @@ import random as r, sys as s
 
 def reset():
 	global board
-	board = [["?"] * (w) for x in range(h)]
+	board = [["?"] * (w + 2) for x in range(h + 2)]
+	for x in board:
+		x[0], x[-1] = "|", "|"
+	board[0] = "-" * (w + 2)
+	board[-1] = "-" * (w + 2)
 
 def checkInput():  # checking for errors for inputs
 	while True:
@@ -46,7 +50,7 @@ def lose():
 
 def answer():
 	global ans
-	ans = [[0] * (w + 2) for x in range(h + 2)]
+	ans = [["|"] * (w + 2) for x in range(h + 2)]
 
 	for i in range(b):
 		bh = r.randint(1, h)
@@ -67,24 +71,37 @@ def answer():
 							continue
 					ans[e][f] = sum
 
-	for x in ans:
-		del x[0], x[-1]
-	del ans[0], ans[-1]
+	ans[0] = "-" * (w + 2)
+	ans[-1] = "-" * (w + 2)
+
+def zero(a, b):
+	for i in range(-1, 2):
+		for j in range(-1, 2):
+			if ans[b + i][a + j] == 0 and board[b + i][a + j] == "?":
+				zero(a + i, b + j)
+			board[b + i][a + j] = ans[b + i][a + j]
+
+
 
 def revealFlag(a, b, c):
 	if c == "r":
-		board[b - 1][a - 1] = ans[b - 1][a - 1]
-		if board[b - 1][a - 1] == "*":
+		# board[b][a] = ans[b][a]
+		if ans[b][a] == "*":
+			board[b][a] = ans[b][a]
 			printBoard()
 			lose()
-		elif board[b - 1][a - 1] == "0":
-
+		elif ans[b][a] == 0:
+			zero(a, b)
+			printBoard()
+			checkInput()
+			revealFlag(col, row, func)
 		else:
+			board[b][a] = ans[b][a]
 			printBoard()
 			checkInput()
 			revealFlag(col, row, func)
 	elif c == "f":
-		board[b - 1][a - 1] = "F"
+		board[b][a] = "F"
 		printBoard()
 		checkInput()
 		revealFlag(col, row, func)
