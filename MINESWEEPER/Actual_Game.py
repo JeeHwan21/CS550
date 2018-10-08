@@ -1,5 +1,7 @@
 import random as r, sys as s
 
+# JEEHWAN KIM - On my honor, I have neither given nor received unauthorized aid.
+
 # === UNSOLVED ===
 
 def reset():  # make a board of question marks
