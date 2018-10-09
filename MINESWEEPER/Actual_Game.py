@@ -131,6 +131,7 @@ def revealFlag(a, b, c):  # reveal characters and numbers depending on function 
 	elif c == "f":  # flag
 		board[b][a] = "F"
 		printBoard()
+		winCheck()
 		checkInput()
 		revealFlag(col, row, func)
 
