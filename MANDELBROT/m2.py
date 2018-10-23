@@ -1,16 +1,23 @@
 from PIL import Image
 import math as m
 global color
+global imgx
+global imgy
+global xmin
+global xmax
+global ymin
+global ymax
 
-imgx = 512
-imgy = 512
+imgx, imgy = 512, 512
+
+xmin, xmax = -2, 2
+ymin, ymax = -2, 2
 
 image = Image.new("RGB",(imgx, imgy))
 
 def check(a, b):
-	x = 2 / 256 * (a - 255)
-	y = 2 / 256 * (b - 255)
-	# set center as (0,0) - not exact because the grid is 512 x 512, which are even numbers
+	x = a * (xmax - xmin) / (imgx - 1) + xmin
+	y = b * (ymax - ymin) / (imgy - 1) + ymin
 
 	sum = 1
 	z = [x, y]
@@ -35,8 +42,8 @@ def check(a, b):
 
 			sum = sum + 1
 
-for i in range(512):
-	for j in range(512):
+for i in range(imgx):
+	for j in range(imgy):
 		check(i, j)
 
-image.save("m2.png", "PNG")
+image.save("m3.png", "PNG")
