@@ -7,8 +7,8 @@ imgx, imgy = 512, 512
 # xmin, xmax = -0.5438500237651169, -0.5431959995767102
 # ymin, ymax = 0.6137094649166102, 0.614363489105169
 
-xmin, xmax = -2, 2
-ymin, ymax = -2, 2
+xmin, xmax = 0.13501, 0.13506
+ymin, ymax = 0.63751, 0.63756
 
 image = Image.new("RGB",(imgx, imgy))
 
@@ -25,12 +25,12 @@ for i in range(imgx):
 		while True:
 			if sum == 256:
 				# maximum iteration is 100
-				a = c.hsv_to_rgb(1, 0.1, 200)
+				a = c.hsv_to_rgb(1, 0.1, 1.0)
 				image.putpixel((i, j), (int(a[0]), int(a[1]), int(a[2])))
 				break
 			elif m.pow(z[0], 2) + m.pow(z[1], 2) >= 4:
-				b = c.hsv_to_rgb(1 / 512 * sum + 0.5, sum / 10, 255)
-				image.putpixel((i, j), (int(b[0]), int(b[1]), int(b[2])))
+				b = c.hsv_to_rgb((1 / 64 * sum)/255, (sum / 10)/255, 1.0)
+				image.putpixel((i, j), (int(b[0]*255), int(b[1]*255), int(b[2]*255)))
 				# checking if z escaped
 				break
 			else:
@@ -45,4 +45,4 @@ for i in range(imgx):
 
 				sum = sum + 1
 
-image.save("MANDELBROT1.png", "PNG")
+image.save("MANDELBROT4.png", "PNG")
