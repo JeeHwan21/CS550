@@ -1,24 +1,15 @@
+# JeeHwan Kim
+# On my honor, I have neither give nor received unauthorized aid. (10.25.18)
+
 from PIL import Image
 import math as m, colorsys as c
 from decimal import Decimal
 
 imgx, imgy = 512, 512
 
-# def zop(z, x, y, sum):
-# 	temp = z[0]
-# 	z[0] = m.pow(z[0], 2) - m.pow(z[1], 2)
-# 	z[1] = 2 * temp * z[1]
-# 	# calculate z * z
-
-# 	z[0] = z[0] + x
-# 	z[1] = z[1] + y
-# 	# calculate z + c
-
-# 	sum = sum + 1
+image = Image.new("RGB",(imgx, imgy))
 
 # MANDELBROT 1
-
-image = Image.new("RGB",(imgx, imgy))
 
 xmin, xmax = -0.8638, -0.8614
 ymin, ymax = 0.2637, 0.2659
@@ -81,8 +72,8 @@ for i in range(imgx):
 				break
 				# max iteration: 256
 			elif m.pow(z[0], 2) + m.pow(z[1], 2) >= 4:
-				b = c.hsv_to_rgb(0.925 + sum / 64 - int(sum / 64 / 0.047) * 0.047 , sum / 64 - int(sum / 64), 220 - sum * 100 / 255)
-				# gradient color from pink to red with varying value
+				b = c.hsv_to_rgb(0.925 + sum / 64 - int(sum / 64 / 0.047) * 0.047, sum / 64 - int(sum / 64), 220 - sum * 100 / 255)
+				# gradient color from pink to red with varying tone
 				image.putpixel((i, j), (int(b[0]), int(b[1]), int(b[2])))
 				# check if z escaped
 				break
@@ -102,8 +93,8 @@ image.save("JeeHwan_M2.png", "PNG")
 
 # JULIA SET
 
-xmin, xmax = -2, 2
-ymin, ymax = -2, 2
+xmin, xmax = -1.2583, -0.7416
+ymin, ymax = -0.3666, 0.1501
 
 for i in range(imgx):
 	for j in range(imgy):
@@ -117,15 +108,14 @@ for i in range(imgx):
 
 		while True:
 			if sum == 256:
-				a = c.hsv_to_rgb(0.5, 1, 255)
+				a = c.hsv_to_rgb(1, 1, 200)
 				image.putpixel((i, j), (int(a[0]), int(a[1]), int(a[2])))
 				break
 				# max iteration: 256
 			elif m.pow(z[0], 2) + m.pow(z[1], 2) >= 4:
-				b = c.hsv_to_rgb(sum / 255, 1, 255)
-				# gradient color from pink to red with varying value
+				b = c.hsv_to_rgb(sum / 203 - int(sum / 203 / 0.1) * 0.1, 1 - sum / 255, ((sum * 3) % 10) + 235)
+				# range from red to yellow
 				image.putpixel((i, j), (int(b[0]), int(b[1]), int(b[2])))
-				# check if z escaped
 				break
 			else:
 				temp = z[0]
@@ -133,14 +123,12 @@ for i in range(imgx):
 				z[1] = 2 * temp * z[1]
 				# calculate z * z
 
-				z[0] = z[0] + 0.5
-				z[1] = z[1] - 0.245
-				# constant c is 0.5 - 0.245i
+				z[0] = z[0] - 0.804966
+				z[1] = z[1] - 0.146706
+				# constant c is -0.804966 - 0.146706i; the image had cool spirals!
 				# calculate z + c
 
 				sum = sum + 1
 
 image.save("JeeHwan_J1.png", "PNG")
-
-
 
