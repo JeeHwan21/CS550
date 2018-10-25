@@ -3,7 +3,7 @@
 # https://www.marksmath.org/visualization/julia_sets/ (10.24.18)
 
 # For all the images, I used colorsys to create interesting rainbow patterns and gradient colors.
-# The last image is a Julia set, and I used a website that generated sets to decide what my constant is.
+# The last image is a Julia set, and I used a website that generated sets to decide what my constant would be.
 # I chose my constant because the image that the website produced had cool spirals.
 
 from PIL import Image
