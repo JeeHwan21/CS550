@@ -1,5 +1,10 @@
 # JeeHwan Kim
-# On my honor, I have neither give nor received unauthorized aid. (10.25.18)
+# On my honor, I have neither given nor received unauthorized aid. (10.25.18)
+# https://www.marksmath.org/visualization/julia_sets/ (10.24.18)
+
+# For all the images, I used colorsys to create interesting rainbow patterns and gradient colors.
+# The last image is a Julia set, and I used a website that generated sets to decide what my constant is.
+# I chose my constant because the image that the website produced had cool spirals.
 
 from PIL import Image
 import math as m, colorsys as c
@@ -9,7 +14,7 @@ imgx, imgy = 512, 512
 
 image = Image.new("RGB",(imgx, imgy))
 
-# MANDELBROT 1
+# MANDELBROT SET 1
 
 xmin, xmax = -0.8638, -0.8614
 ymin, ymax = 0.2637, 0.2659
@@ -50,7 +55,7 @@ for i in range(imgx):
 
 image.save("JeeHwan_M1.png", "PNG")
 
-# MANDELBROT 2
+# MANDELBROT SET 2
 
 xmin, xmax = -0.45676176, -0.45669549
 ymin, ymax = 0.58401132, 0.58407759
@@ -126,6 +131,7 @@ for i in range(imgx):
 				z[0] = z[0] - 0.804966
 				z[1] = z[1] - 0.146706
 				# constant c is -0.804966 - 0.146706i; the image had cool spirals!
+				# https://www.marksmath.org/visualization/julia_sets/ (10.24.18)
 				# calculate z + c
 
 				sum = sum + 1
