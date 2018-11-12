@@ -1,6 +1,9 @@
 import random as r
 
+# http://weblog.jamisbuck.org/2011/1/10/maze-generation-prim-s-algorithm
+
 # ├, ┼, ┤, ┌, ┬, ┐, └, ┴, ┘, ─, ╷, ╵, │, ╴, ╶
+# https://en.wikipedia.org/wiki/Box-drawing_character
 
 agrid = [["┌", "─", "┬", "─", "┬", "─", "┐"], ["├", "─", "┼", "─", "┼", "─", "┤"], ["├", "─", "┼", "─", "┼", "─", "┤"], ["└", "─", "┴", "─", "┴", "─", "┘"]]
 
