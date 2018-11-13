@@ -5,154 +5,152 @@ import random as r
 # ├, ┼, ┤, ┌, ┬, ┐, └, ┴, ┘, ─, ╷, ╵, │, ╴, ╶
 # https://en.wikipedia.org/wiki/Box-drawing_character
 
-agrid = [["┌", "─", "┬", "─", "┬", "─", "┐"], ["├", "─", "┼", "─", "┼", "─", "┤"], ["├", "─", "┼", "─", "┼", "─", "┤"], ["└", "─", "┴", "─", "┴", "─", "┘"]]
-
-for i in agrid:
-	for j in i:
-		print(j, end = "")
-	print()
-
-for i in agrid:
-	print(*i)
-
-left = []
-
-igrid = [["B"] * (3 + 2) for x in range(3 + 2)]
-
-for i in range(1, 3 + 1):
-	for j in range(1, 3 + 1):
-		igrid[i][j] = 0
-
 def parentontop(i, j):
 	agrid[i - 1][j * 2 - 1] = " "
 
-	if agrid[i - 1][j * 2 - 2] == "├":
+	a = agrid[i - 1][j * 2 - 2]
+
+	if a == "├":
 		agrid[i - 1][j * 2 - 2] = "│"
-	elif agrid[i - 1][j * 2 - 2] == "┬":
+	elif a == "┬":
 		agrid[i - 1][j * 2 - 2] = "┐"
-	elif agrid[i - 1][j * 2 - 2] == "┼":
+	elif a == "┼":
 		agrid[i - 1][j * 2 - 2] = "┤"	
-	elif agrid[i - 1][j * 2 - 2] == "└":
+	elif a == "└":
 		agrid[i - 1][j * 2 - 2] = "╵"
-	elif agrid[i - 1][j * 2 - 2] == "┴":
+	elif a == "┴":
 		agrid[i - 1][j * 2 - 2] = "┘"
-	elif agrid[i - 1][j * 2 - 2] == "┌":
+	elif a == "┌":
 		agrid[i - 1][j * 2 - 2] = "╷"
-	elif agrid[i - 1][j * 2 - 2] == "╶":
+	elif a == "╶":
 		agrid[i - 1][j * 2 - 2] = " "
 
-	if agrid[i - 1][j * 2] == "┤":
+	b = agrid[i - 1][j * 2]
+
+	if b == "┤":
 		agrid[i - 1][j * 2] = "│"
-	elif agrid[i - 1][j * 2] == "┬":
+	elif b == "┬":
 		agrid[i - 1][j * 2] = "┌"
-	elif agrid[i - 1][j * 2] == "┴":
+	elif b == "┴":
 		agrid[i - 1][j * 2] = "└"
-	elif agrid[i - 1][j * 2] == "┼":
+	elif b == "┼":
 		agrid[i - 1][j * 2] = "├"	
-	elif agrid[i - 1][j * 2] == "┘":
+	elif b == "┘":
 		agrid[i - 1][j * 2] = "╵"
-	elif agrid[i - 1][j * 2] == "┐":
+	elif b == "┐":
 		agrid[i - 1][j * 2] = "╷"
-	elif agrid[i - 1][j * 2] == "╴":
+	elif b == "╴":
 		agrid[i - 1][j * 2] = " "
 
 def parentonbottom(i, j):
 	agrid[i][j * 2 - 1] = " "
 
-	if agrid[i][j * 2 - 2] == "├":
+	a = agrid[i][j * 2 - 2]
+
+	if a == "├":
 		agrid[i][j * 2 - 2] = "│"
-	elif agrid[i][j * 2 - 2] == "┬":
+	elif a == "┬":
 		agrid[i][j * 2 - 2] = "┐"
-	elif agrid[i][j * 2 - 2] == "┼":
+	elif a == "┼":
 		agrid[i][j * 2 - 2] = "┤"	
-	elif agrid[i][j * 2 - 2] == "└":
+	elif a == "└":
 		agrid[i][j * 2 - 2] = "╵"
-	elif agrid[i][j * 2 - 2] == "┴":
+	elif a == "┴":
 		agrid[i][j * 2 - 2] = "┘"
-	elif agrid[i][j * 2 - 2] == "┌":
+	elif a == "┌":
 		agrid[i][j * 2 - 2] = "╷"
-	elif agrid[i][j * 2 - 2] == "╶":
+	elif a == "╶":
 		agrid[i][j * 2 - 2] = " "
 
-	if agrid[i][j * 2] == "┤":
+	b = agrid[i][j * 2]
+
+	if b == "┤":
 		agrid[i][j * 2] = "│"
-	elif agrid[i][j * 2] == "┬":
+	elif b == "┬":
 		agrid[i][j * 2] = "┌"
-	elif agrid[i][j * 2] == "┴":
+	elif b == "┴":
 		agrid[i][j * 2] = "└"
-	elif agrid[i][j * 2] == "┼":
+	elif b == "┼":
 		agrid[i][j * 2] = "├"		
-	elif agrid[i][j * 2] == "┘":
+	elif b == "┘":
 		agrid[i][j * 2] = "╵"
-	elif agrid[i][j * 2] == "┐":
+	elif b == "┐":
 		agrid[i][j * 2] = "╷"
-	elif agrid[i][j * 2] == "╴":
+	elif b == "╴":
 		agrid[i][j * 2] = " "
 
 # ├, ┼, ┤, ┌, ┬, ┐, └, ┴, ┘, ─, ╷, ╵, │, ╴, ╶
 
 def parentonleft(i, j):
 
-	if agrid[i - 1][j * 2 - 2] == "├":
+	a = agrid[i - 1][j * 2 - 2]
+
+	if a == "├":
 		agrid[i - 1][j * 2 - 2] = "└"
-	elif agrid[i - 1][j * 2 - 2] == "┼":
+	elif a == "┼":
 		agrid[i - 1][j * 2 - 2] = "┴"
-	elif agrid[i - 1][j * 2 - 2] == "┤":
+	elif a == "┤":
 		agrid[i - 1][j * 2 - 2] = "┘"
-	elif agrid[i - 1][j * 2 - 2] == "┌":
+	elif a == "┌":
 		agrid[i - 1][j * 2 - 2] = "╶"
-	elif agrid[i - 1][j * 2 - 2] == "┬":
+	elif a == "┬":
 		agrid[i - 1][j * 2 - 2] = "─"
-	elif agrid[i - 1][j * 2 - 2] == "┐":
+	elif a == "┐":
 		agrid[i - 1][j * 2 - 2] = "╴"
-	elif agrid[i - 1][j * 2 - 2] == "╷":
+	elif a == "╷":
 		agrid[i - 1][j * 2 - 2] = " "
 
-	if agrid[i][j * 2 - 2] == "├":
+	b = agrid[i][j * 2 - 2]
+
+	if b == "├":
 		agrid[i][j * 2 - 2] = "┌"
-	elif agrid[i][j * 2 - 2] == "┼":
+	elif b == "┼":
 		agrid[i][j * 2 - 2] = "┬"
-	elif agrid[i][j * 2 - 2] == "┤":
+	elif b == "┤":
 		agrid[i][j * 2 - 2] = "┐"
-	elif agrid[i][j * 2 - 2] == "└":
+	elif b == "└":
 		agrid[i][j * 2 - 2] = "╶"
-	elif agrid[i][j * 2 - 2] == "┴":
+	elif b == "┴":
 		agrid[i][j * 2 - 2] = "─"
-	elif agrid[i][j * 2 - 2] == "┘":
+	elif b == "┘":
 		agrid[i][j * 2 - 2] = "╴"
-	elif agrid[i][j * 2 - 2] == "╵":
+	elif b == "╵":
 		agrid[i][j * 2 - 2] = " "
 
 def parentonright(i, j):
 
-	if agrid[i - 1][j * 2] == "├":
+	a = agrid[i - 1][j * 2]
+
+	if a == "├":
 		agrid[i - 1][j * 2] = "└"
-	elif agrid[i - 1][j * 2] == "┼":
+	elif a == "┼":
 		agrid[i - 1][j * 2] = "┴"
-	elif agrid[i - 1][j * 2] == "┤":
+	elif a == "┤":
 		agrid[i - 1][j * 2] = "┘"
-	elif agrid[i - 1][j * 2] == "┌":
+	elif a == "┌":
 		agrid[i - 1][j * 2] = "╶"
-	elif agrid[i - 1][j * 2] == "┬":
+	elif a == "┬":
 		agrid[i - 1][j * 2] = "─"
-	elif agrid[i - 1][j * 2] == "┐":
+	elif a == "┐":
 		agrid[i - 1][j * 2] = "╴"
-	elif agrid[i - 1][j * 2] == "╷":
+	elif a == "╷":
 		agrid[i - 1][j * 2] = " "
 
-	if agrid[i][j * 2] == "├":
+	b = agrid[i][j * 2]
+
+	if b == "├":
 		agrid[i][j * 2] = "┌"
-	elif agrid[i][j * 2] == "┼":
+	elif b == "┼":
 		agrid[i][j * 2] = "┬"
-	elif agrid[i][j * 2] == "┤":
+	elif b == "┤":
 		agrid[i][j * 2] = "┐"
-	elif agrid[i][j * 2] == "└":
+	elif b == "└":
 		agrid[i][j * 2] = "╶"
-	elif agrid[i][j * 2] == "┴":
+	elif b == "┴":
 		agrid[i][j * 2] = "─"
-	elif agrid[i][j * 2] == "┘":
+	elif b == "┘":
 		agrid[i][j * 2] = "╴"
-	elif agrid[i][j * 2] == "╵":
+	elif b == "╵":
 		agrid[i][j * 2] = " "
 
 
@@ -235,6 +233,24 @@ def frontier(i, j):
 		igrid[temp[0]][temp[1]] = "D"
 
 		frontier(temp[0], temp[1])
+
+agrid = [["┌", "─", "┬", "─", "┬", "─", "┐"], ["├", "─", "┼", "─", "┼", "─", "┤"], ["├", "─", "┼", "─", "┼", "─", "┤"], ["└", "─", "┴", "─", "┴", "─", "┘"]]
+
+for i in agrid:
+	for j in i:
+		print(j, end = "")
+	print()
+
+for i in agrid:
+	print(*i)
+
+left = []
+
+igrid = [["B"] * (3 + 2) for x in range(3 + 2)]
+
+for i in range(1, 3 + 1):
+	for j in range(1, 3 + 1):
+		igrid[i][j] = 0
 
 for x in igrid:
 	print(*x)
