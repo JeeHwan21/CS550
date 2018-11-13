@@ -16,7 +16,7 @@ for a in range(x):
 
 		hsv = c.rgb_to_hsv(rgb[0], rgb[1], rgb[2])
 
-		rgb = c.hsv_to_rgb(hsv[0] + 0.5 - int(hsv[0] / 1), hsv[1] + 0.3, hsv[2] * 1.5)
+		rgb = c.hsv_to_rgb(hsv[0], hsv[1] + 0.3, hsv[2] * 1.32)
 
 		pix[a, b] = (int(rgb[0]), int(rgb[1]), int(rgb[2]))
 
