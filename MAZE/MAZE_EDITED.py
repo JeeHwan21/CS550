@@ -1,12 +1,21 @@
+# JeeHwan Kim
+# 11.15.18
+
+# For my project, I decided to make randomized mazes with dimensions ranging from 5 x 5 to 25 x 25 (can be rectangles).
+# I used lists, recursive functions, and the random module to produce the mazes.
+
 # http://weblog.jamisbuck.org/2011/1/10/maze-generation-prim-s-algorithm
 # https://en.wikipedia.org/wiki/Box-drawing_character
 # https://stackoverflow.com/questions/2793324/is-there-a-simple-way-to-delete-a-list-element-by-value
+# https://stackoverflow.com/questions/14895599/insert-an-element-at-specific-index-in-a-list-and-return-updated-list
+
+# On my honor, I have neither given nor received unauthorized aid.
 
 import random as r
 
-# how to erase the border between the frontier and the parent for the four different situations (top, bottom, left, right)
-
 def parentontop(i, j):
+
+# how to erase the border between the frontier and the parent for the four different situations (parent on top, bottom, left or right)
 
 	agrid[i - 1][j * 2 - 1] = " "
 
@@ -156,7 +165,7 @@ def parentonright(i, j):
 
 def frontier(i, j):
 
-	# check for frontiers around a "D" (Done) square and append its coordinates to the "left" list if it isn't already in there
+	# check for frontiers around a "D" (Done) square and append its coordinates to the "left" (frontiers that are left) list if it isn't already in there
 
 	if igrid[i][j] == "D" and igrid[i - 1][j] != "D" and igrid[i - 1][j] != "B":
 		igrid[i - 1][j] = "F"
@@ -188,7 +197,7 @@ def frontier(i, j):
 
 	temp = left[randleftover]
 
-	# check for "D" (Done) squares around the chosen frontier and gather the different options (top, bottom, left & right)
+	# check for "D" (Done) squares around the chosen frontier and gather the different options (parent on top, bottom, left or right)
 
 	parentoptions = []
 
@@ -206,7 +215,7 @@ def frontier(i, j):
 
 	ran = r.randint(0, len(parentoptions) - 1)
 
-	# randomly choose one of the available options and erase the border between the frontier and the "D" square of the chosen direction
+	# randomly choose one of the available options and erase the border between the frontier and the "D" square of the chosen parent direction
 
 	if parentoptions[ran] == 1:
 		parentontop(temp[0], temp[1])
@@ -237,7 +246,7 @@ def frontier(i, j):
 # ├, ┼, ┤, ┌, ┬, ┐, └, ┴, ┘, ─, ╷, ╵, │, ╴, ╶
 # https://en.wikipedia.org/wiki/Box-drawing_character
 
-# randomly generate dimensions for the maze (unfortunately cannot go crazy with the numbers because the frontier function is recursive)
+# randomly generate dimensions for the maze (5 <= dx, dy <= 25)
 
 dx = r.randint(5, 25)
 dy = r.randint(5, 25)
@@ -293,9 +302,54 @@ igrid[x][y] = "D"
 
 frontier(x, y)
 
+# make the openings at the top and the bottom with arrows to indicate the start and the end
+
+a = agrid[0][2]
+
+if a == "┬":
+	agrid[0][2] = "┤"
+else:
+	agrid[0][2] = "┘"
+
+agrid[0][3] = " "
+
+b = agrid[0][4]
+
+if b == "┬":
+	agrid[0][4] = "├"
+else:
+	agrid[0][4] = "└"
+
+c = agrid[-1][-3]
+
+if c == "┴":
+	agrid[-1][-3] = "├"
+else:
+	agrid[-1][-3] = "┌"
+
+agrid[-1][-4] = " "
+
+d = agrid[-1][-5]
+
+if d == "┴":
+	agrid[-1][-5] = "┤"
+else:
+	agrid[-1][-5] = "┐"
+
+agrid.insert(0, [" " * 2, "╷", "↓", "╷", " " * (dx * 2 - 4)])
+# https://stackoverflow.com/questions/14895599/insert-an-element-at-specific-index-in-a-list-and-return-updated-list
+
+agrid.append([" " * (dx * 2 - 4), "╵", "↓", "╵", " " * 2])
+
 # print the final result neatly
 
 for i in agrid:
 	for j in i:
 		print(j, end = "")
 	print()
+
+# print the dimensions
+
+print("\n" + "Width:" + str(dx), "Height:" + str(dy) + "\n")
+
+
