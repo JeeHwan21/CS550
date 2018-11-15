@@ -12,12 +12,40 @@ pix = img.load()
 for a in range(x):
 	for b in range(y):
 
-		rgb = pix[a, b]
+		origrgb = pix[a, b]
 
-		hsv = c.rgb_to_hsv(rgb[0], rgb[1], rgb[2])
+		hsv = c.rgb_to_hsv(origrgb[0] * 1.29, origrgb[1] * 1.15, origrgb[2])
 
-		rgb = c.hsv_to_rgb(hsv[0], hsv[1] + 0.3, hsv[2] * 1.32)
+		if hsv[1] < 0.45:
 
-		pix[a, b] = (int(rgb[0]), int(rgb[1]), int(rgb[2]))
+			m = hsv[1] * 0.7
 
-img.save('REVISED.JPG')
+		else:
+			
+			m = hsv[1]
+
+		if hsv[2] < 0.5:
+
+			n = hsv[2] * 0.4
+
+		else:
+
+			n = hsv[2]
+
+		newrgb = c.hsv_to_rgb(hsv[0], m, n)
+
+		if newrgb[0] % 2 == 0:
+
+			i = 200
+
+		elif newrgb[0] % 3 == 0:
+
+			i = 150
+
+		else:
+
+			i = newrgb[0]
+
+		pix[a, b] = (int(i), int(newrgb[1]), int(newrgb[2]))
+
+img.save('REVISED16.JPG')
