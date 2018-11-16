@@ -14,9 +14,27 @@ for a in range(x):
 
 		origrgb = pix[a, b]
 
-		hsv = c.rgb_to_hsv(origrgb[0] * 1.29, origrgb[1] * 1.15, origrgb[2])
+		if origrgb[0] > 1.5 * origrgb[1] and origrgb[0] > 1.5 * origrgb[2]:
 
-		if hsv[1] < 0.45:
+			p = 240
+			q = origrgb[1] * 0.2
+			r = origrgb[2] * 0.2
+
+		elif origrgb[0] < 100 and origrgb[1] < 100 and origrgb[2] < 100:
+
+			p = origrgb[0] * 0.29
+			q = origrgb[1] * 0.29
+			r = origrgb[2] * 0.29
+
+		else:
+
+			p = origrgb[0] * 1.29
+			q = origrgb[1] * 1.29
+			r = origrgb[2] * 1.29
+
+		hsv = c.rgb_to_hsv(p * 1.19, q * 1.05, r + 10)
+
+		if hsv[1] < 0.40:
 
 			m = hsv[1] * 0.7
 
@@ -48,4 +66,4 @@ for a in range(x):
 
 		pix[a, b] = (int(i), int(newrgb[1]), int(newrgb[2]))
 
-img.save('REVISED16.JPG')
+img.save('REVISED.JPG')
