@@ -1,7 +1,7 @@
 # PART 1 - Monte Carlo Walk Simluation
 
 # The longest walk I can take to ensure that I walk home 50% of the time is 22.
-# I kept track of the steps I took in the x axis and y axis by creating two different lists for each and appended 1s and -1s to those lists until I reached ten times in total.
+# I kept track of the steps I took in the x axis and y axis by creating two different lists for each and appended randomly chosen 1s and -1s to those lists until I reached ten times in total.
 # Then, I added the elements of the lists to find the final x coordinate and y coordinate. Adding the absolute value of these two values gave me the distance from home.
 # After having done 1000 trials for 10 blocks, I realized that the percentage was around 80%, so started increasing the number of blocks until the average percentage seemd like 50%.
 # My final answer after trial and error was 22.
