@@ -1,123 +1,165 @@
 import random as r, sys as s
 
-w = int(s.argv[1])
-h = int(s.argv[2])
-b = int(s.argv[3])
+# JEEHWAN KIM - On my honor, I have neither given nor received unauthorized aid.
 
-if w < 1 or h < 1:
-	print("Please enter first two volues over 0.")
+# === UNSOLVED ===
 
-else:
-	mf = [[0] * w for x in range(h)]
+def reset():  # make a board of question marks
+	global board
+	board = [["?"] * (w + 2) for x in range(h + 2)]
+	for x in board:
+		x[0], x[-1] = "|", "|"
+	board[0] = "┌" + "-" * w + "┐"
+	board[-1] = "└" + "-" * w + "┘"
+
+def checkInput():  # checking for errors for inputs
+	while True:
+		try:
+			global col, row, func  # https://stackoverflow.com/questions/423379/using-global-variables-in-a-function (10.3.18)
+			a, b, func = input("\nCOLUMN, ROW and r FOR REVEAL or f FOR FLAG WITH SPACES IN BETWEEN (ex: 1 1 r)\n>>").split()  # https://stackoverflow.com/questions/961263/two-values-from-one-input-in-python (10.3.18)
+			break
+		except ValueError:
+			print("\nPLEASE ENTER THREE SEPEARATE VALUES.")
+	while True:
+		try:
+			col = int(a)
+			row = int(b)
+			break
+		except ValueError:
+			print("\nCOLUMN AND ROW MUST BE INTEGERS.")
+			checkInput()
+	if col < 1 or col > h or row < 1 or row > w:
+		print("\nCOLUMN AND/OR ROW OUT OF RANGE.")
+		checkInput()
+	elif func != "r" and func != "f":
+		print("\nLAST VALUE MUST BE r or f.")
+		checkInput()
+
+def printBoard():  # print the current board
+	print()
+	for x in board:
+		print(*x)
+
+def lose():
+	x = input("\nYOU LOSE! TRY AGAIN? (1: YES 2: NO)\n>>")
+	if x == "1":
+		game()
+	elif x == "2":
+		quit()
+	else:
+		print("\nPLEASE ENTER 1 OR 2.")
+		lose()
+
+# === ANSWER ===
+
+def answer():  # make the answer board
+	global ans
+	ans = [["|"] * (w + 2) for x in range(h + 2)]
 
 	for i in range(b):
-		bh = r.randint(0, h - 1)
-		bw = r.randint(0, w - 1)
-		mf[bh][bw] = "*"  # same spot could be chosen twice...
+		bh = r.randint(1, h)
+		bw = r.randint(1, w)
+		ans[bh][bw] = "*"
 
-	for a in range(h):
-		for b in range(w):
-
-			# Bombs
-
-			if mf[a][b] == "*":
+	for e in range(1, h + 1):
+		for f in range(1, w + 1):
+			if ans[e][f] == "*":
 				continue
-
-			# Vertex
-
-			elif a == 0 and b == 0:
-				sum = 0
-				for i in range(2):
-					for j in range(2):
-						if mf[i][j] == "*":
-							sum += 1
-						else:
-							continue
-				mf[a][b] = sum
-
-			elif a == 0 and b == w - 1:
-				sum = 0
-				for i in range(2):
-					for j in range(2):
-						if mf[i][w - 1 - j] == "*":
-							sum += 1
-						else:
-							continue
-				mf[a][b] = sum
-
-			elif a == h - 1 and b == 0:
-				sum = 0
-				for i in range(2):
-					for j in range(2):
-						if mf[h - 1 - i][j] == "*":
-							sum += 1
-						else:
-							continue
-				mf[a][b] = sum
-
-			elif a == h - 1 and b == w - 1:
-				sum = 0
-				for i in range(2):
-					for j in range(2):
-						if mf[h - 1 - i][w - 1 - j] == "*":
-							sum += 1
-						else:
-							continue
-				mf[a][b] = sum
-
-			# Edges
-
-			elif a == 0:
-				sum = 0
-				for i in range(2):
-					for j in range(3):
-						if mf[i][b - 1 + j] == "*":
-							sum += 1
-						else:
-							continue
-				mf[a][b] = sum
-
-			elif a == h - 1:
-				sum = 0
-				for i in range(2):
-					for j in range(3):
-						if mf[h - 1 - i][b - 1 + j] == "*":
-							sum += 1
-						else:
-							continue
-				mf[a][b] = sum
-
-			elif b == 0:
-				sum = 0
-				for i in range(3):
-					for j in range(2):
-						if mf[a - 1 + i][j] == "*":
-							sum += 1
-						else:
-							continue
-				mf[a][b] = sum
-
-			elif b == w - 1:
-				sum = 0
-				for i in range(3):
-					for j in range(2):
-						if mf[a - 1 + i][w - 1 - j] == "*":
-							sum += 1
-						else:
-							continue
-				mf[a][b] = sum
-
-			# Middle
-
 			else:
 				sum = 0
 				for i in range(3):
 					for j in range(3):
-						if mf[a - 1 + i][b - 1 + j] == "*":
+						if ans[e - 1 + i][f - 1 + j] == "*":
 							sum += 1
-					else:
-						continue
-				mf[a][b] = sum
+						else:
+							continue
+					ans[e][f] = sum
 
-	for x in mf:
-		print(*x)
+	ans[0] = "-" * (w + 2)
+	ans[-1] = "-" * (h + 2)
+
+def zero(a, b):  # reveal all of the contiguous zeroes
+	for i in range(-1, 2):
+		for j in range(-1, 2):
+			if ans[b + i][a + j] == 0 and board[b + i][a + j] == "?":
+				board[b + i][a + j] = ans[b + i][a + j]
+				zero(a + j, b + i)
+			elif ans[b + i][a + j] == "|" or ans[b + i][a + j] == "-":
+				continue
+			else:
+				board[b + i][a + j] = ans[b + i][a + j]
+
+def win():
+	x = input("\nYOU WIN! TRY AGAIN? (1: YES 2: NO)\n>>")
+	if x == "1":
+		game()
+	elif x == "2":
+		quit()
+	else:
+		print("\nPLEASE ENTER 1 OR 2.")
+		win()
+
+def winCheck():  # check if the board is complete with correct answers
+	sum = 0
+	for i in range(1, h + 1):
+		for j in range(1, w + 1):
+			if board[i][j] == ans[i][j]:
+				sum += 1
+			elif board[i][j] == "F" and ans[i][j] == "*":
+				sum += 1
+	if sum == w * h:
+		win()
+
+def revealFlag(a, b, c):  # reveal characters and numbers depending on function (r or f)
+	if c == "r":
+		if ans[b][a] == "*":  # lose
+			board[b][a] = ans[b][a]
+			printBoard()
+			lose()
+		elif ans[b][a] == 0:  # reveal contiguous zeroes
+			zero(a, b)
+			printBoard()
+			winCheck()
+			checkInput()
+			revealFlag(col, row, func)
+		else:  # reveal number
+			board[b][a] = ans[b][a]
+			printBoard()
+			winCheck()
+			checkInput()
+			revealFlag(col, row, func)
+	elif c == "f":  # flag
+		board[b][a] = "F"
+		printBoard()
+		winCheck()
+		checkInput()
+		revealFlag(col, row, func)
+
+def game():  # for restarting the game after winning or losing
+	start()
+	answer()
+	reset()
+	printBoard()
+	checkInput()
+	revealFlag(col, row, func)
+
+def start():  # selecting the dimensions of the minesweeper board
+	while True:
+		try:
+			global w, h, b
+			x, y, z = input("\nWIDTH, HEIGHT AND NUMBER OF BOMBS WITH SPACES IN BETWEEN (ex: 5 6 4)\n>>").split()
+			w = int(x)
+			h = int(y)
+			b = int(z)
+			break
+		except ValueError:
+			print("\nPLEASE ENTER THREE INTEGERS.")
+
+
+print("\n=======================\nWELCOME TO MINESWEEPER!\n=======================")
+start()
+answer()
+reset()
+printBoard()
+checkInput()
+revealFlag(col, row, func)
