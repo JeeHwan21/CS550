@@ -23,6 +23,6 @@ for i in range(len(calories)):
 	display[calories[i] + 1] += 1
 
 plot.plot(display)
-plot.ylabel("Calories")
-plot.xlabel("Holidays")
+plot.ylabel("Holidays")
+plot.xlabel("Calories")
 plot.show()
